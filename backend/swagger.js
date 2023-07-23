@@ -6,15 +6,15 @@ const options = {
     definition: {
         openapi:"3.0.0",
         info:{
-            title:"Ecommerce API",
+            title:"API RPS-alfa",
             version:"1.0.0",
-            description:"API que sirve para crear un ecommerce al estilo de mercadolibre"
+            description:"API para almacenar frases de ingle para repeticion programada"
         }
 
     },
     apis: [
-        "./src/routes/*.routes.js",
-        "./src/models/*.models.js"
+        "./src/routes/*.route.js",
+        "./src/models/*.model.js"
       ],
     
 }
@@ -29,7 +29,7 @@ const swaggerDocs = (app, port) => {
         res.setHeader("Content-Type", "application/json");
         res.send(swaggerSpec)
     });
-    console.log('Documentation available in process.env.HOST/api/v1/docs')
+    console.log(`Documentation available in ${process.env.HOST}:${process.env.PORT}/api/v1/docs`)
 }
 
 module.exports = swaggerDocs
