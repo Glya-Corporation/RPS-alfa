@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { HashRouter, Routes, Route } from 'react-router-dom';
+
+import ProtectedRoutes from './components/ProtectedRoutes';
+
+import Login from './pages/Login';
+import Home from './pages/Home';
+
+import './App.css';
+
+import phrases from './assets/data';
+import { useDispatch } from 'react-redux';
+
+import { getPhrasesThunk } from './store/slices/phrases.slice';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispacth = useDispatch();
+
+  dispacth(getPhrasesThunk(phrases));
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <HashRouter>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/' element={<Home />} />
+        </Route>
+      </Routes>
+    </HashRouter>
+  );
 }
 
-export default App
+export default App;
